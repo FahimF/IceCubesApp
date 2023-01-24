@@ -22,15 +22,15 @@ public enum Timelines: Endpoint {
   public func queryItems() -> [URLQueryItem] {
     switch self {
     case let .pub(sinceId, maxId, minId, local):
-      var params = makePaginationParam(sinceId: sinceId, maxId: maxId, mindId: minId) ?? []
+      var params = makePaginationParam(sinceId: sinceId, maxId: maxId, minId: minId) ?? []
       params.append(.init(name: "local", value: local ? "true" : "false"))
       return params
     case let .home(sinceId, maxId, mindId):
-      return makePaginationParam(sinceId: sinceId, maxId: maxId, mindId: mindId)
+      return makePaginationParam(sinceId: sinceId, maxId: maxId, minId: mindId)
     case let .list(_, sinceId, maxId, mindId):
-      return makePaginationParam(sinceId: sinceId, maxId: maxId, mindId: mindId)
+      return makePaginationParam(sinceId: sinceId, maxId: maxId, minId: mindId)
     case let .hashtag(_, maxId):
-      return makePaginationParam(sinceId: nil, maxId: maxId, mindId: nil)
+      return makePaginationParam(sinceId: nil, maxId: maxId, minId: nil)
     }
   }
 }

@@ -18,7 +18,7 @@ public enum Notifications: Endpoint {
   public func queryItems() -> [URLQueryItem] {
     switch self {
     case let .notifications(sinceId, maxId, types):
-      var params = makePaginationParam(sinceId: sinceId, maxId: maxId, mindId: nil) ?? []
+      var params = makePaginationParam(sinceId: sinceId, maxId: maxId, minId: nil) ?? []
       if let types {
         for type in types {
           params.append(.init(name: "exclude_types[]", value: type))

@@ -13,14 +13,15 @@ public extension Endpoint {
 }
 
 extension Endpoint {
-  func makePaginationParam(sinceId: String?, maxId: String?, mindId: String?) -> [URLQueryItem] {
-    if let sinceId {
-      return [.init(name: "since_id", value: sinceId)]
-    } else if let maxId {
-      return [.init(name: "max_id", value: maxId)]
-    } else if let mindId {
-      return [.init(name: "min_id", value: mindId)]
-    }
-    return []
+  func makePaginationParam(sinceId: String?, maxId: String?, minId: String?, limit: String = "40") -> [URLQueryItem] {
+	var res = [URLQueryItem(name: "limit", value: limit)]
+	if let sinceId {
+	  res.append(URLQueryItem(name: "since_id", value: sinceId))
+	} else if let maxId {
+	  res.append(URLQueryItem(name: "max_id", value: maxId))
+	} else if let minId {
+	  res.append(URLQueryItem(name: "min_id", value: minId))
+	}
+	return res
   }
 }
