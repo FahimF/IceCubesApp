@@ -76,7 +76,7 @@ class TimelineViewModel: ObservableObject, StatusesFetcher {
                                                                     minId: nil,
                                                                     offset: statuses.count))
         withAnimation {
-          statusesState = .display(statuses: statuses, nextPageState: statuses.count < 20 ? .none : .hasNextPage)
+          statusesState = .display(statuses: statuses, nextPageState: statuses.count == 0 ? .none : .hasNextPage)
         }
       } else if let first = pendingStatuses.first ?? statuses.first {
         var newStatuses: [Status] = await fetchNewPages(minId: first.id, maxPages: 20)
@@ -85,7 +85,7 @@ class TimelineViewModel: ObservableObject, StatusesFetcher {
           statuses.insert(contentsOf: pendingStatuses, at: 0)
           pendingStatuses = []
           withAnimation {
-            statusesState = .display(statuses: statuses, nextPageState: statuses.count < 20 ? .none : .hasNextPage)
+            statusesState = .display(statuses: statuses, nextPageState: statuses.count == 0 ? .none : .hasNextPage)
           }
         } else {
           newStatuses = newStatuses.filter { status in
